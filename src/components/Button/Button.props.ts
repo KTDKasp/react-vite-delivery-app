@@ -1,5 +1,6 @@
-import React from "react"
+import React from 'react';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-	children: React.ReactNode
+	children: React.ReactNode;
+	appearance?: 'big' | 'small';
 }

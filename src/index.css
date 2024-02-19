@@ -20,7 +20,6 @@
   list-style: none;
   outline: none;
   font-family: "Open Sans", sans-serif;
-  color: #ffffff;
 }
 
 img,
@@ -39,6 +38,10 @@ a {
   text-decoration: none;
 }
 
+button {
+  color: var(--white-color);
+}
+
 body {
   height: 100dvh;
 }
@@ -47,6 +50,5 @@ body {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
   color: var(--text-color);
 }
