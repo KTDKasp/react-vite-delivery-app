@@ -28,9 +28,9 @@ export const MainLayout: React.FC = () => {
           <span>Выйти</span>
         </Button>
       </div>
-      <div>
+      <main className='layout__main'>
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 };

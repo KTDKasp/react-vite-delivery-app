@@ -66,3 +66,7 @@
   align-self: flex-start;
   padding: 10px 20px 10px 10px;
 }
+
+.layout__main {
+  width: 100%;
+}

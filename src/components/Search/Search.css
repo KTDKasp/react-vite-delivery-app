@@ -1,0 +1,25 @@
+.search {
+	padding: 16px 20px 16px 44px;
+	border: 1px solid rgb(239, 239, 239);
+	border-radius: 10px;
+	background-color: #FCFCFD;
+	color: var(--text-color);
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 19px;
+	min-width: 256px;
+}
+
+.search::placeholder {
+	color: rgb(154, 160, 180);
+}
+
+.search__wrapper {
+	position: relative;
+}
+
+.search-icon {
+	position: absolute;
+	left: 18px;
+	top: 19px;
+}
