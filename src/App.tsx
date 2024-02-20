@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Button } from './components/Button';
 import { Input } from './components/Input';
 
@@ -13,8 +14,10 @@ function App() {
   return (
     <>
       <Button onClick={addValue}>{counter}</Button>
-      <Button appearance='big' onClick={addValue}>Hello</Button>
-      <Input />
+      <Button appearance='big'>Hello</Button>
+      <Input placeholder='Email'/>
+
+
     </>
   );
 }
