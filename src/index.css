@@ -36,6 +36,7 @@ input, textarea, select {
 
 a {
   text-decoration: none;
+  color: var(--text-color);
 }
 
 button {

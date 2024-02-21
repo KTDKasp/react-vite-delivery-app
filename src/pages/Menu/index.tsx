@@ -13,7 +13,8 @@ export const Menu: React.FC = () => {
 				<Search placeholder="Введите блюдо или состав" />
 			</div>
 			<div className='menu__content'>
-				<ProductCard 
+				<ProductCard
+					id={1}
 					price={300} 
 					title='Наслаждение' 
 					description='Салями, руккола, помидоры, оливки'

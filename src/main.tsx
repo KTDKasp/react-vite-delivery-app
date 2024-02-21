@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-// import App from './App.tsx';
 import { MainLayout } from './layouts/MainLayout.tsx';
 import { Menu } from './pages/Menu/index.tsx';
 import { Cart } from './pages/Cart/index.tsx';
+import { Product } from './pages/Product/index.tsx';
 
 import './index.css';
 
@@ -21,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: 'cart',
         element: <Cart />
+      },
+      {
+        path: 'product/:id',
+        element: <Product />
       }
     ]
   },
