@@ -7,10 +7,10 @@ import { Link } from 'react-router-dom';
 export const ProductCard: React.FC<ProductCardProps> = ({
   id,
   price,
-  description,
+  ingredients,
   rating,
-  imageUrl,
-  title
+  image,
+  name
 }) => {
   return (
     <div className="card">
@@ -20,7 +20,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <span>₽</span>
         </div>
         <Link to={`/product/${id}`}>
-          <img className="card__image" src={imageUrl} alt="Фото блюда" />
+          <img className="card__image" src={image} alt="Фото блюда" />
         </Link>
         <button type="button" className="card__add">
           <img src="./card-add-icon.svg" alt="Иконка корзины" />
@@ -31,8 +31,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
       <div className="card__bottom">
-        <div className="card__title">{title}</div>
-        <div className="card__description">{description}</div>
+        <div className="card__title">{name}</div>
+        <div className="card__description">{ingredients}</div>
       </div>
     </div>
   );
