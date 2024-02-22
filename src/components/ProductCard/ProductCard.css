@@ -5,6 +5,11 @@
   flex-direction: column;
   box-shadow: 18.21px 18.21px 36.43px 0px rgba(211, 209, 216, 0.25);
   background: rgb(255, 255, 255);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .card__top {

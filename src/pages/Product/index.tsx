@@ -1,10 +1,11 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
+import { Products } from '../../interfaces/product.interface';
 
 export const Product: React.FC = () => {
-  const { id } = useParams();
+  const data = useLoaderData() as Products;
 
   return (
-    <div>Product - {id} + api: https://purpleschool.ru/pizza-api-demo/[postfix]</div>
+    <div>Product - {data.name} + api: https://purpleschool.ru/pizza-api-demo/[postfix]</div>
   );
 };
