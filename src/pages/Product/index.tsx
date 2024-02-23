@@ -1,11 +1,17 @@
-import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { Await, useLoaderData } from 'react-router-dom';
 import { Products } from '../../interfaces/product.interface';
 
 export const Product: React.FC = () => {
-  const data = useLoaderData() as Products;
+  const data = useLoaderData() as {data: Products};
 
   return (
-    <div>Product - {data.name} + api: https://purpleschool.ru/pizza-api-demo/[postfix]</div>
+    <Suspense fallback={<>Загрузка...</>}>
+      <Await resolve={data.data}>
+      {({data}: {data: Products}) => (
+        <div>Product - {data.name} + api: https://purpleschool.ru/pizza-api-demo/[postfix]</div>
+      )}
+    </Await>
+    </Suspense>
   );
 };

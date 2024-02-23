@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import axios from 'axios';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, defer } from 'react-router-dom';
 
 import { MainLayout } from './layouts/MainLayout.tsx';
 import { Cart } from './pages/Cart/index.tsx';
@@ -30,8 +30,11 @@ const router = createBrowserRouter([
         element: <Product />,
         errorElement: <h2 style={{ 'padding': '40px 60px' }}>Ошибка загрузки продукта...</h2>,
         loader: async ({ params }) => {
-          const { data } = await axios.get(`${PREFIX}/products/${params.id}`);
-          return data;
+          return defer({
+            data: axios.get(`${PREFIX}/products/${params.id}`).then(data => data)
+          });
+          // const { data } = await axios.get(`${PREFIX}/products/${params.id}`);
+          // return data;
         } 
       }
     ]

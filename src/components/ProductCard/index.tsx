@@ -23,11 +23,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <img className="card__image" src={image} alt="Фото блюда" />
         </Link>
         <button type="button" className="card__add">
-          <img src="./card-add-icon.svg" alt="Иконка корзины" />
+          <img src="/card-add-icon.svg" alt="Иконка корзины" />
         </button>
         <div className="card__rating">
           {rating}&nbsp;
-          <img src="./rating-icon.svg" alt="Иконка рейтинга" />
+          <img src="/rating-icon.svg" alt="Иконка рейтинга" />
         </div>
       </div>
       <div className="card__bottom">

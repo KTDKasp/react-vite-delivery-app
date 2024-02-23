@@ -9,7 +9,7 @@ export const Search = React.forwardRef<HTMLInputElement, SearchProps>(
 			<div className="search__wrapper">
 				<img
 					className="search-icon"
-					src="./search-icon.svg"
+					src="/search-icon.svg"
 					alt="Иконка поиска"
 				/>
 				<input
