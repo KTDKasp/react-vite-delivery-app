@@ -8,6 +8,7 @@
   flex-direction: column;
   border-right: 1px solid var(--separator-color);
   padding: 30px;
+  min-width: 240px;
 }
 
 .sidebar__pic {

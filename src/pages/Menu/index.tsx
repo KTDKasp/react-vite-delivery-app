@@ -8,7 +8,7 @@ import { PREFIX } from '../../helpers/API';
 
 import './Menu.css';
 
-export const Menu: React.FC = () => {
+const Menu: React.FC = () => {
 	const [products, setProducts] = React.useState<Products[]>([]);
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [error, setError] = React.useState<string | null>();
@@ -62,3 +62,5 @@ export const Menu: React.FC = () => {
 		</div>
 	);
 };
+
+export default Menu;

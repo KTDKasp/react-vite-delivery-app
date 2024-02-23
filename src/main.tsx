@@ -4,12 +4,13 @@ import axios from 'axios';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { MainLayout } from './layouts/MainLayout.tsx';
-import { Menu } from './pages/Menu/index.tsx';
 import { Cart } from './pages/Cart/index.tsx';
 import { Product } from './pages/Product/index.tsx';
 import { PREFIX } from './helpers/API.ts';
 
 import './index.css';
+
+const Menu = React.lazy(() => import('./pages/Menu/index.tsx'));
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Menu />
+        element: <React.Suspense fallback={<>Загрузка...</>}><Menu /></React.Suspense>
       },
       {
         path: 'cart',
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       {
         path: 'product/:id',
         element: <Product />,
+        errorElement: <h2 style={{ 'padding': '40px 60px' }}>Ошибка загрузки продукта...</h2>,
         loader: async ({ params }) => {
           const { data } = await axios.get(`${PREFIX}/products/${params.id}`);
           return data;
