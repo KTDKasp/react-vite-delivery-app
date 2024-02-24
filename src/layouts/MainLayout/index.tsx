@@ -1,10 +1,16 @@
 import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/Button';
 
 import './MainLayout.css';
 
 export const MainLayout: React.FC = () => {
+  const navigate = useNavigate();
+  const onClickLogout = () => {
+    localStorage.removeItem('jwt');
+    navigate('/auth/login');
+  };
+
   return (
     <div className="layout">
       <div className="layout__sidebar">
@@ -23,7 +29,7 @@ export const MainLayout: React.FC = () => {
             Корзина
           </NavLink>
         </div>
-        <Button className="exit-button">
+        <Button onClick={onClickLogout} className="exit-button">
           <img src="/on-off.svg" alt="Выход" />
           <span>Выйти</span>
         </Button>
