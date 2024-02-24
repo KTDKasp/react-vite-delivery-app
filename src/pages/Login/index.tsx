@@ -1,20 +1,52 @@
 import React from 'react';
+import axios, { AxiosError } from 'axios';
+
 import { Headling } from '../../components/Headling';
 import { Input } from '../../components/Input';
-
-import './Login.css';
 import { Button } from '../../components/Button';
 import { Link } from 'react-router-dom';
+import { PREFIX } from '../../helpers/API';
+
+import './Login.css';
+
+export type LoginForm = {
+  email: {
+    value: string
+  },
+  password: {
+    value: string
+  }
+};
 
 const Login: React.FC = () => {
-  const onSubmitLogin = (event: React.FormEvent) => {
+  const [errorLogin, setErrorLogin] = React.useState<string | null>();
+
+  const onSubmitLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(event);
+    setErrorLogin(null);
+    const target = event.target as typeof event.target & LoginForm;
+    const { email, password } = target;
+    await sendLogin(email.value, password.value);
+  };
+
+  const sendLogin = async (email: string, password: string) => {
+    try {
+      const { data } = await axios.post(`${PREFIX}/auth/login`, {
+        email,
+        password
+      });
+      console.log(data);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setErrorLogin(error.response?.data.message);
+      }
+    }
   };
 
   return (
     <>
       <Headling className="login__headling">Вход</Headling>
+      {errorLogin && <div className='error-login'>{errorLogin}</div>}
       <form className="login__form" onSubmit={onSubmitLogin}>
         <label className="login__label" htmlFor="email">
           Ваш email

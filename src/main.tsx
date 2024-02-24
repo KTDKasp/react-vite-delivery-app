@@ -12,13 +12,14 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 
 import './index.css';
+import { RequireAuth } from './helpers/RequireAuth.tsx';
 
 const Menu = React.lazy(() => import('./pages/Menu'));
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />,
+    element: <RequireAuth><MainLayout /></RequireAuth>,
     children: [
       {
         index: true,
