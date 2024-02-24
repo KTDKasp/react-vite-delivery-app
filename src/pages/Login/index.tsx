@@ -48,7 +48,7 @@ const Login: React.FC = () => {
 
   return (
     <>
-      <Headling className="login__headling">Вход</Headling>
+      <Headling>Вход</Headling>
       {errorLogin && <div className='error-login'>{errorLogin}</div>}
       <form className="login__form" onSubmit={onSubmitLogin}>
         <label className="login__label" htmlFor="email">
