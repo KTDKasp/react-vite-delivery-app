@@ -1,4 +1,3 @@
-
 export interface ProductCardProps {
   id: number;
   name: string;

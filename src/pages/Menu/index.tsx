@@ -12,16 +12,20 @@ const Menu: React.FC = () => {
 	const [products, setProducts] = React.useState<Products[]>([]);
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [error, setError] = React.useState<string | null>();
+	const [searchValue, setSearchValue] = React.useState<string>();
 
-	const getProducts = async () => {
+	React.useEffect(() => {
+		getProducts(searchValue);
+	}, [searchValue]);
+
+	const getProducts = async (name?: string) => {
 		try {
 			setIsLoading(true);
-			await new Promise<void>((resolve) => {
-				setTimeout(() => {
-					resolve();
-				}, 2000);
+			const { data } = await axios.get<Products[]>(`${PREFIX}/products`, {
+				params: {
+					name
+				}
 			});
-			const { data } = await axios.get<Products[]>(`${PREFIX}/products`);
 			setProducts(data);
 			setIsLoading(false);
 		} catch (e) {
@@ -34,19 +38,19 @@ const Menu: React.FC = () => {
 		}
 	};
 
-	React.useEffect(() => {
-		getProducts();
-	}, []);
+	const onChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setSearchValue(event.target.value);
+	};
 
 	return (
 		<div className="menu">
 			<div className="menu__header">
 				<Headling>Меню</Headling>
-				<Search placeholder="Введите блюдо или состав" />
+				<Search value={searchValue} onChange={onChangeSearch} placeholder="Введите блюдо или состав" />
 			</div>
 			<div className="menu__content">
 				{error && <div>{error}</div>}
-				{!isLoading && products.map((product) => (
+				{!isLoading && products.length > 0 && products.map((product) => (
 					<ProductCard
 					key={product.id}
 					id={product.id}
@@ -57,6 +61,7 @@ const Menu: React.FC = () => {
 					image={product.image}
 				/>
 				))}
+				{!isLoading && products.length === 0 && <>Нет таких товаров :^\</>}
 				{isLoading && <div>Загрузка продуктов...</div>}
 			</div>
 		</div>

@@ -1,0 +1,9 @@
+.cart-item {
+  display: flex;
+}
+
+.cart-item__actions {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+}

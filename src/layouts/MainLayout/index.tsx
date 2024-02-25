@@ -6,11 +6,13 @@ import './MainLayout.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
 import { getProfile, userActions } from '../../store/user.slice';
+import { cartActions } from '../../store/cart.slice';
 
 export const MainLayout: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const profile = useSelector((state: RootState) => state.user.profile);
+  const items = useSelector((state: RootState) => state.cart.items);
 
   React.useEffect(() => {
     dispatch(getProfile());
@@ -18,6 +20,7 @@ export const MainLayout: React.FC = () => {
 
   const onClickLogout = () => {
     dispatch(userActions.logout());
+    dispatch(cartActions.emptyCartOnExit());
     navigate('/auth/login');
   };
 
@@ -36,7 +39,7 @@ export const MainLayout: React.FC = () => {
           </NavLink>
           <NavLink to="/cart" className='sidebar__link'>
             <img src="/cart-icon.svg" alt="Иконка корзины" />
-            Корзина
+            Корзина <span className='cart-count'>{items.reduce((acc, item) => acc += item.count, 0)}</span>
           </NavLink>
         </div>
         <Button onClick={onClickLogout} className="exit-button">

@@ -3,6 +3,9 @@ import { ProductCardProps } from './ProductCard.props';
 
 import './ProductCard.css';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { cartActions } from '../../store/cart.slice';
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   id,
@@ -12,6 +15,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   image,
   name
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const addToCart = (event: React.MouseEvent) => {
+    event.preventDefault();
+    dispatch(cartActions.add(id));
+  };
+
   return (
     <div className="card">
       <div className="card__top">
@@ -22,7 +32,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <Link to={`/product/${id}`}>
           <img className="card__image" src={image} alt="Фото блюда" />
         </Link>
-        <button type="button" className="card__add">
+        <button type="button" className="card__add" onClick={addToCart}>
           <img src="/card-add-icon.svg" alt="Иконка корзины" />
         </button>
         <div className="card__rating">
