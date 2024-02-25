@@ -1,13 +1,13 @@
 import React from 'react';
-import axios, { AxiosError } from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Headling } from '../../components/Headling';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
-import { Link, useNavigate } from 'react-router-dom';
-import { PREFIX } from '../../helpers/API';
-import { LoginResponse } from '../../interfaces/auth.interface';
 
+import { AppDispatch, RootState } from '../../store/store';
+import { login, userActions } from '../../store/user.slice';
 import './Login.css';
 
 export type LoginForm = {
@@ -20,36 +20,33 @@ export type LoginForm = {
 };
 
 const Login: React.FC = () => {
-  const [errorLogin, setErrorLogin] = React.useState<string | null>();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const { jwt, loginErrorState } = useSelector((state: RootState) => state.user);
+
+  React.useEffect(() => {
+    if (jwt) {
+      navigate('/');
+    }
+  }, [jwt, navigate]);
 
   const onSubmitLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-    setErrorLogin(null);
+    dispatch(userActions.clearLoginError());
     const target = event.target as typeof event.target & LoginForm;
     const { email, password } = target;
     await sendLogin(email.value, password.value);
   };
 
+
   const sendLogin = async (email: string, password: string) => {
-    try {
-      const { data } = await axios.post<LoginResponse>(`${PREFIX}/auth/login`, {
-        email,
-        password
-      });
-      localStorage.setItem('jwt', data.access_token);
-      navigate('/');
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        setErrorLogin(error.response?.data.message);
-      }
-    }
+    dispatch(login({email, password}));
   };
 
   return (
     <>
       <Headling>Вход</Headling>
-      {errorLogin && <div className='error-login'>{errorLogin}</div>}
+      {loginErrorState && <div className='error-login'>{loginErrorState}</div>}
       <form className="login__form" onSubmit={onSubmitLogin}>
         <label className="login__label" htmlFor="email">
           Ваш email
