@@ -19,7 +19,7 @@ export const Cart: React.FC = () => {
   };
 
   const loadAllItems = async () => {
-    const res = await Promise.all(items.map(item => getCartItem(item.id)));
+    const res = await Promise.all(items.map((item) => getCartItem(item.id)));
     setCartProducts(res);
   };
 
@@ -31,12 +31,14 @@ export const Cart: React.FC = () => {
     <div className="cart">
       <div className="cart__header">
         <Headling>Корзина</Headling>
-        {items.map(item => {
-          const product = cartProducts.find(obj => obj.id === item.id);
+      </div>
+      <div className="cart__list">
+        {items.map((item) => {
+          const product = cartProducts.find((obj) => obj.id === item.id);
           if (!product) {
             return;
           }
-          return <CartItem count={item.id} {...product}/>;
+          return <CartItem key={product.id} count={item.count} {...product} />;
         })}
       </div>
     </div>
