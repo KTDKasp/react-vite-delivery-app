@@ -15,6 +15,7 @@ import { RequireAuth } from './helpers/RequireAuth.tsx';
 import { store } from './store/store.ts';
 
 import './index.css';
+import { Success } from './pages/Success/index.tsx';
 
 const Menu = React.lazy(() => import('./pages/Menu'));
 
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: 'cart',
+        path: '/cart',
         element: <Cart />
       },
       {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
           // const { data } = await axios.get(`${PREFIX}/products/${params.id}`);
           // return data;
         }
+      },
+      {
+        path: 'success',
+        element: <Success />
       }
     ]
   },

@@ -10,14 +10,19 @@ import { Products } from '../../interfaces/product.interface';
 import { CartItem } from '../../components/CartItem';
 import { Button } from '../../components/Button';
 import { cartActions } from '../../store/cart.slice';
+import { useNavigate } from 'react-router-dom';
 
 const DELIVERY_FEE = 169;
 
 export const Cart: React.FC = () => {
   const [cartProducts, setCartProducts] = React.useState<Products[]>([]);
   const [promocodeValue, setPromocodeValue] = React.useState<string>('');
+  const [discount, setDiscount] = React.useState<number>(0);
   const items = useSelector((state: RootState) => state.cart.items);
+  const jwt = useSelector((state: RootState) => state.user.jwt);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const total = items
     .map((item) => {
@@ -45,14 +50,24 @@ export const Cart: React.FC = () => {
 
   const onSubmitPromocode = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(`Промокод ${promocodeValue} был введен`);
+    if (promocodeValue === 'KTDKasp') {
+      setDiscount(200);
+    }
   };
 
   const onChangePromocode = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPromocodeValue(event.target.value);
   };
 
-  const onClickPayment = () => {
+  const onClickPayment = async () => {
+    await axios.post(`${PREFIX}/order`, {
+      products: items
+    }, {
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    });
+    navigate('/success');
     dispatch(cartActions.emptyCartOnExit());
   };
 
@@ -92,6 +107,7 @@ export const Cart: React.FC = () => {
               </Button>
             </div>
           </form>
+          {discount === 0 ? '' : <div className='valid-discount'>Поздравляю!</div>}
           <div className="cart__total">
             <div className="cart__total-calc">
               <div>Итог</div>
@@ -112,7 +128,7 @@ export const Cart: React.FC = () => {
                 Итог <span className="count">({items.length})</span>
               </div>
               <span>
-                {total + DELIVERY_FEE}&nbsp;<span className="curr">₽</span>
+                {total + DELIVERY_FEE - discount}&nbsp;<span className="curr">₽</span>
               </span>
             </div>
           </div>

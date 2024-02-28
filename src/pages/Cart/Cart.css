@@ -41,6 +41,14 @@
   z-index: 5;
 }
 
+.valid-discount {
+  padding-left: 15px;
+  margin-top: -27px;
+  margin-bottom: 30px;
+  font-size: 14px;
+  color: var(--text-secondary-color);
+}
+
 .cart__total {
   margin-bottom: 70px;
   max-width: 512px;
