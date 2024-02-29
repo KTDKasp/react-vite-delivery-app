@@ -13,9 +13,9 @@ export const Product: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const addToCart = (event: React.MouseEvent) => {
+  const addToCart = (event: React.MouseEvent, id: number) => {
     event.preventDefault();
-    dispatch(cartActions.add(data.data.id));
+    dispatch(cartActions.add(id));
   };
 
 	return (
@@ -28,7 +28,7 @@ export const Product: React.FC = () => {
 								<img src="/arrow-back-icon.svg" alt="Вернуться назад" />
 							</button>
 							<Headling>{data.name}</Headling>
-							<Button onClick={addToCart} appearance="small" className="product__in-cart">
+							<Button onClick={(event) => addToCart(event, data.id)} appearance="small" className="product__in-cart">
 								<img
 									src="/card-add-icon.svg"
 									alt="Кнопка добавления в корзину"

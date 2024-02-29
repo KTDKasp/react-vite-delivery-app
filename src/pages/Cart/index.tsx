@@ -122,6 +122,12 @@ export const Cart: React.FC = () => {
                 {DELIVERY_FEE}&nbsp;<span className="curr">₽</span>
               </span>
             </div>
+            {discount === 0 ? '' : <><hr className="hr" /><div className="cart__total-calc">
+              <div>Промокод</div>
+              <span>
+                -{discount}&nbsp;<span className="curr">₽</span>
+              </span>
+            </div></>}
             <hr className="hr" />
             <div className="cart__total-calc">
               <div>
